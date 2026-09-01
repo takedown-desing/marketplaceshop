@@ -1,0 +1,21 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Секреты — никогда в репозиторий
+.env
+.env.*
+*.key
+*.pem
+.secrets/
+
+# Зависимости и сборка
+node_modules/
+dist/
+.wrangler/
+.cache/
+
+# Медиа контекста (созвоны, записи) — держим локально
+*.mp4
+*.mov
+*.wav
