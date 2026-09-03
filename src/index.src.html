@@ -1,0 +1,1088 @@
+<title>Магазин без комиссии</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+:root{
+  color-scheme: dark;
+  --bg:#0B0F16;
+  --surface:#131A24;
+  --surface-2:#1B2431;
+  --surface-3:#222D3D;
+  --line:#263141;
+  --line-2:#314054;
+  --text:#EDF1F7;
+  --text-2:#C3CDDB;
+  --muted:#8C99AE;
+  --accent:#FF5C2B;
+  --accent-ink:#FFF1EC;
+  --amber:#FFB020;
+  --bad:#F2555A;
+  --bad-bg:#2A1418;
+  --good:#3DD68C;
+  --good-bg:#0F2A20;
+  --r:14px;
+  --maxw:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Onest,"Helvetica Neue",Arial,sans-serif;
+  font-size:16px;line-height:1.6;margin:0;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+section{padding:88px 0;position:relative}
+@media (max-width:760px){section{padding:56px 0}}
+
+/* ---- типографика ---- */
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+h1{font-family:Unbounded,Onest,sans-serif;font-weight:800;font-size:clamp(29px,4.3vw,52px);line-height:1.06;letter-spacing:-.03em}
+h2{font-family:Unbounded,Onest,sans-serif;font-weight:700;font-size:clamp(25px,3.7vw,42px);line-height:1.1;letter-spacing:-.025em}
+h3{font-weight:700;font-size:clamp(18px,2vw,22px);line-height:1.25;letter-spacing:-.01em}
+h4{font-weight:600;font-size:17px;line-height:1.3}
+p{margin:0 0 16px}
+.eyebrow{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11.5px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 18px;
+}
+.sec-lead{color:var(--text-2);font-size:clamp(16px,1.7vw,19px);max-width:62ch;margin:18px 0 0}
+.num{font-family:Unbounded,Onest,sans-serif;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.dim{color:var(--muted)}
+strong{font-weight:600;color:var(--text)}
+
+/* ---- кнопки ---- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  font-family:Onest,sans-serif;font-size:16px;font-weight:600;line-height:1;
+  padding:17px 28px;border-radius:11px;border:1px solid transparent;
+  cursor:pointer;text-decoration:none;transition:transform .12s,background .15s,border-color .15s;
+  min-height:52px;
+}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--accent);color:var(--accent-ink);box-shadow:0 8px 28px -12px rgba(255,92,43,.9)}
+.btn-primary:hover{background:#ff6f45}
+.btn-ghost{background:transparent;color:var(--text);border-color:var(--line-2)}
+.btn-ghost:hover{border-color:var(--muted);background:rgba(255,255,255,.03)}
+.btn-block{width:100%}
+:where(a,button,input,select,textarea,summary):focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px}
+
+/* ---- шапка ---- */
+header.top{
+  position:sticky;top:0;z-index:40;background:rgba(11,15,22,.86);
+  backdrop-filter:blur(14px);border-bottom:1px solid var(--line);
+}
+.top-in{display:flex;align-items:center;gap:28px;height:64px}
+.logo{font-family:Unbounded,sans-serif;font-weight:800;font-size:17px;letter-spacing:-.03em;white-space:nowrap}
+.logo em{color:var(--accent);font-style:normal}
+.proto-chip{
+  font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--amber);border:1px solid rgba(255,176,32,.4);
+  padding:3px 7px;border-radius:5px;white-space:nowrap;
+}
+nav.top-nav{display:flex;gap:22px;margin-left:auto;font-size:14.5px}
+nav.top-nav a{color:var(--text-2);text-decoration:none;white-space:nowrap}
+nav.top-nav a:hover{color:var(--text)}
+.top .btn{padding:11px 18px;min-height:40px;font-size:14.5px}
+@media (max-width:980px){nav.top-nav{display:none}.top .btn{margin-left:auto}}
+
+/* ---- 01 hero ---- */
+.hero{padding:76px 0 84px;position:relative;overflow:hidden}
+.hero::before{
+  content:"";position:absolute;inset:-40% -20% auto -20%;height:620px;pointer-events:none;
+  background:
+    radial-gradient(48% 52% at 22% 40%, rgba(255,92,43,.20), transparent 68%),
+    radial-gradient(42% 46% at 78% 30%, rgba(122,90,255,.17), transparent 70%),
+    radial-gradient(38% 40% at 55% 66%, rgba(255,176,32,.10), transparent 70%);
+  filter:blur(18px);
+}
+.hero-in{position:relative;display:grid;grid-template-columns:1.24fr .76fr;gap:52px;align-items:center}
+@media (max-width:980px){.hero-in{grid-template-columns:1fr;gap:36px}}
+.platforms{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
+.plat{
+  font-size:13px;font-weight:600;padding:6px 13px;border-radius:8px;
+  border:1px solid var(--line-2);background:var(--surface);color:var(--text-2);
+}
+.plat b{font-weight:700}
+.plat.wb b{color:#CB11AB}.plat.oz b{color:#4E8FFF}.plat.ym b{color:#FFCC00}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero-sub{font-size:clamp(16px,1.9vw,20px);color:var(--text-2);max-width:52ch;margin:24px 0 32px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:34px}
+.trust{display:flex;flex-wrap:wrap;gap:10px 26px;font-size:14px;color:var(--muted)}
+.trust span{display:inline-flex;align-items:center;gap:8px}
+.trust b{color:var(--text);font-weight:600}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex:0 0 auto}
+
+/* карточка «сколько забирает площадка» в герое */
+.hero-card{
+  background:linear-gradient(160deg,var(--surface-2),var(--surface));
+  border:1px solid var(--line-2);border-radius:20px;padding:28px;
+  box-shadow:0 40px 80px -50px #000;
+}
+.hero-card .cap{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.hero-card .big{font-size:clamp(44px,6vw,62px);line-height:1;color:var(--bad);margin-bottom:6px}
+.hero-card .note{font-size:14px;color:var(--muted);margin:0 0 22px}
+.bars{display:flex;flex-direction:column;gap:14px}
+.bar-row .bl{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:7px}
+.bar-row .bl b{font-weight:600}
+.track{height:9px;border-radius:5px;background:var(--surface-3);overflow:hidden}
+.fill{height:100%;border-radius:5px}
+.fill.bad{background:linear-gradient(90deg,#8B2530,var(--bad))}
+.fill.good{background:linear-gradient(90deg,#1B6B48,var(--good))}
+
+/* ---- 02 калькулятор ---- */
+.calc{
+  background:var(--surface);border:1px solid var(--line);border-top:2px solid var(--accent);
+  border-radius:20px;padding:clamp(24px,3.4vw,40px);
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,52px);align-items:center;
+}
+@media (max-width:860px){.calc{grid-template-columns:1fr}}
+.field{margin-bottom:22px}
+.field label{display:block;font-size:14px;font-weight:500;color:var(--text-2);margin-bottom:9px}
+.field input[type=number],.field select,.f-in{
+  width:100%;background:var(--bg);border:1px solid var(--line-2);border-radius:10px;
+  padding:14px 16px;color:var(--text);font-family:Onest,sans-serif;font-size:16px;
+}
+.field input[type=range]{width:100%;accent-color:var(--accent);height:26px}
+.range-val{float:right;font-family:"JetBrains Mono",monospace;font-size:14px;color:var(--amber);font-weight:600}
+.calc-out{background:var(--bg);border:1px solid var(--line-2);border-radius:16px;padding:clamp(22px,3vw,32px);text-align:center}
+.calc-out .lbl{font-size:14px;color:var(--muted);margin-bottom:10px}
+.calc-out .money{font-size:clamp(34px,5.4vw,54px);line-height:1;color:var(--amber);margin-bottom:8px}
+.calc-out .sub{font-size:14px;color:var(--muted);margin-bottom:22px}
+.calc-split{display:flex;gap:12px;margin-bottom:22px;font-size:13px}
+.calc-split div{flex:1;background:var(--surface-2);border-radius:10px;padding:12px 10px}
+.calc-split .v{font-family:"JetBrains Mono",monospace;font-weight:600;font-size:16px;display:block;margin-top:4px}
+
+/* ---- 03 сравнение ---- */
+.cmp{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--surface)}
+.cmp-head{display:grid;grid-template-columns:1.05fr 1fr 1fr;background:var(--surface-2);border-bottom:1px solid var(--line)}
+.cmp-head div{padding:18px 20px;font-weight:600;font-size:15px}
+.cmp-head .h-bad{color:var(--bad);border-left:1px solid var(--line)}
+.cmp-head .h-good{color:var(--good);border-left:1px solid var(--line)}
+.cmp-row{display:grid;grid-template-columns:1.05fr 1fr 1fr;border-bottom:1px solid var(--line)}
+.cmp-row:last-child{border-bottom:0}
+.cmp-row>div{padding:17px 20px;font-size:14.5px;line-height:1.5}
+.cmp-row .c-name{font-weight:600}
+.cmp-row .c-bad{background:var(--bad-bg);color:#F6C9CB;border-left:1px solid var(--line)}
+.cmp-row .c-good{background:var(--good-bg);color:#B6EFD3;border-left:1px solid var(--line)}
+.cmp-row:hover .c-bad{background:#331519}
+.cmp-row:hover .c-good{background:#123324}
+@media (max-width:820px){
+  .cmp-head{display:none}
+  .cmp-row{grid-template-columns:1fr;gap:0}
+  .cmp-row>div{border-left:0!important}
+  .cmp-row .c-bad::before{content:"Маркетплейс — ";color:var(--bad);font-weight:600}
+  .cmp-row .c-good::before{content:"Свой магазин — ";color:var(--good);font-weight:600}
+}
+
+/* ---- сетки/карточки ---- */
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:980px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:680px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+.card h4{margin-bottom:8px}
+.card p{font-size:14.5px;color:var(--text-2);margin:0}
+
+/* список-чеклист */
+.checks{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:11px}
+.checks li{position:relative;padding-left:30px;font-size:15px;color:var(--text-2);line-height:1.45}
+.checks li::before{
+  content:"";position:absolute;left:0;top:2px;width:19px;height:19px;border-radius:6px;
+  background:var(--good-bg);border:1px solid rgba(61,214,140,.45);
+}
+.checks li::after{
+  content:"";position:absolute;left:6.5px;top:5.5px;width:5px;height:9px;
+  border-right:2px solid var(--good);border-bottom:2px solid var(--good);
+  transform:rotate(43deg);border-radius:1px;
+}
+.checks.minus li::before{background:var(--bad-bg);border-color:rgba(242,85,90,.45)}
+.checks.minus li::after{
+  left:5px;top:10px;width:9px;height:0;border-right:0;
+  border-bottom:2px solid var(--bad);transform:none;
+}
+
+/* ---- 05 шаги переноса ---- */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:s}
+@media (max-width:820px){.steps{grid-template-columns:1fr}}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:26px;position:relative;counter-increment:s}
+.step::before{
+  content:counter(s);position:absolute;top:22px;right:24px;
+  font-family:Unbounded,sans-serif;font-weight:800;font-size:44px;line-height:1;
+  color:var(--line-2);
+}
+.step h4{margin-bottom:10px;padding-right:52px}
+.step p{font-size:14.5px;color:var(--text-2);margin:0}
+
+/* ---- 06 интеграции ---- */
+.int-group{margin-bottom:26px}
+.int-group .gt{font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{
+  background:var(--surface);border:1px solid var(--line-2);border-radius:9px;
+  padding:10px 15px;font-size:14px;font-weight:500;color:var(--text-2);
+}
+
+/* ---- 07 кейсы ---- */
+.cases{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.case{
+  grid-column:span 2;background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;
+}
+.case.wide{grid-column:span 3}
+@media (max-width:900px){.cases{grid-template-columns:repeat(2,1fr)}.case,.case.wide{grid-column:span 1}}
+@media (max-width:560px){.cases{grid-template-columns:1fr}}
+.case .shot{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;object-position:top center;background:var(--surface-2);border-bottom:1px solid var(--line)}
+.case .body{padding:18px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
+.case .cat{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+.case .nm{font-weight:700;font-size:17px}
+.case .ds{font-size:14px;color:var(--text-2);margin:0}
+.case-sum{background:linear-gradient(160deg,var(--surface-2),var(--surface));border-color:var(--line-2);justify-content:center}
+.case-sum .body{padding:clamp(24px,3vw,34px);gap:10px}
+.case .lk{margin-top:auto;padding-top:10px;font-size:13.5px;color:var(--accent);text-decoration:none;font-weight:600}
+.case .lk:hover{text-decoration:underline}
+.badge-new{
+  display:inline-block;background:var(--accent);color:var(--accent-ink);font-size:10.5px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:5px;margin-left:8px;vertical-align:2px;
+}
+
+/* ---- 08 таймлайн ---- */
+.tl{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface)}
+@media (max-width:900px){.tl{grid-template-columns:1fr}}
+.tl-i{padding:24px 22px;border-right:1px solid var(--line)}
+.tl-i:last-child{border-right:0}
+@media (max-width:900px){.tl-i{border-right:0;border-bottom:1px solid var(--line)}.tl-i:last-child{border-bottom:0}}
+.tl-i .d{font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.tl-i h4{margin-bottom:7px;font-size:16px}
+.tl-i p{font-size:14px;color:var(--muted);margin:0}
+
+/* ---- 09 цена ---- */
+.price-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+@media (max-width:860px){.price-wrap{grid-template-columns:1fr}}
+.price-main{
+  background:linear-gradient(165deg,var(--surface-2),var(--surface));
+  border:1px solid var(--accent);border-radius:20px;padding:clamp(26px,3.4vw,38px);
+  box-shadow:0 40px 90px -55px var(--accent);
+}
+.price-main .tag{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.price-main .val{font-size:clamp(42px,6.6vw,68px);line-height:1;margin-bottom:6px}
+.price-main .per{color:var(--muted);font-size:15px;margin-bottom:26px}
+.price-note{font-size:13.5px;color:var(--muted);margin:22px 0 0;padding-top:18px;border-top:1px solid var(--line-2)}
+.price-side{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:clamp(26px,3.4vw,34px)}
+.price-side h3{margin-bottom:8px}
+.price-side .hint{font-size:14px;color:var(--muted);margin-bottom:20px}
+
+/* ---- 10 отстройка ---- */
+.vs{overflow-x:auto;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+table.vs-t{border-collapse:collapse;width:100%;min-width:720px;font-size:14.5px}
+table.vs-t th,table.vs-t td{padding:15px 18px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+table.vs-t thead th{
+  background:var(--surface-2);font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:600;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--muted);white-space:nowrap;
+}
+table.vs-t thead th.us{color:var(--accent)}
+table.vs-t tbody tr:last-child td{border-bottom:0}
+table.vs-t td.us{background:rgba(255,92,43,.06);color:var(--text);font-weight:500}
+.yes{color:var(--good);font-weight:600}
+.no{color:var(--bad);font-weight:600}
+
+/* ---- 11 бонусы ---- */
+.bonus{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:8px}
+.bonus .save{
+  align-self:flex-start;font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:600;
+  color:var(--amber);background:rgba(255,176,32,.1);border:1px solid rgba(255,176,32,.3);
+  padding:3px 9px;border-radius:6px;
+}
+.bonus p{font-size:14px;color:var(--text-2);margin:0}
+
+/* ---- 12 отзывы (пустое состояние) ---- */
+.rev-empty{
+  border:1px dashed var(--line-2);border-radius:var(--r);padding:26px;background:transparent;
+  display:flex;flex-direction:column;gap:10px;min-height:190px;
+}
+.rev-empty .ph-line{height:9px;border-radius:5px;background:var(--surface-2)}
+.rev-empty .ph-line.s{width:62%}
+.rev-empty .who{margin-top:auto;display:flex;align-items:center;gap:11px}
+.rev-empty .av{width:36px;height:36px;border-radius:50%;background:var(--surface-2);flex:0 0 auto}
+.rev-empty .cap{font-size:13px;color:var(--muted)}
+
+/* ---- 13 о компании ---- */
+.about{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,56px);align-items:center}
+@media (max-width:900px){.about{grid-template-columns:1fr}}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.fact{background:var(--surface);padding:24px 20px}
+.fact .v{font-size:32px;line-height:1;color:var(--text);margin-bottom:7px}
+.fact .k{font-size:13.5px;color:var(--muted)}
+
+/* ---- 14 квиз ---- */
+.quiz{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:clamp(24px,3.4vw,40px)}
+.quiz-bar{height:5px;border-radius:3px;background:var(--surface-3);margin-bottom:26px;overflow:hidden}
+.quiz-bar i{display:block;height:100%;background:var(--accent);border-radius:3px;transition:width .3s;width:16.6%}
+.quiz-step{display:none}
+.quiz-step.on{display:block}
+.quiz-q{font-size:clamp(19px,2.4vw,26px);font-weight:700;letter-spacing:-.015em;margin-bottom:22px}
+.opts{display:grid;gap:10px;margin-bottom:26px}
+.opt{
+  display:flex;align-items:center;gap:13px;padding:16px 18px;border-radius:11px;
+  border:1px solid var(--line-2);background:var(--bg);cursor:pointer;font-size:15.5px;
+  transition:border-color .15s,background .15s;text-align:left;color:var(--text);font-family:Onest,sans-serif;
+}
+.opt:hover{border-color:var(--muted)}
+.opt.sel{border-color:var(--accent);background:rgba(255,92,43,.08)}
+.opt .rd{width:18px;height:18px;border-radius:50%;border:2px solid var(--line-2);flex:0 0 auto}
+.opt.sel .rd{border-color:var(--accent);background:radial-gradient(circle at center,var(--accent) 42%,transparent 46%)}
+.quiz-nav{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.quiz-count{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--muted);margin-left:auto}
+
+/* ---- 15 FAQ ---- */
+.faq{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--surface)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq details:last-child{border-bottom:0}
+.faq summary{
+  list-style:none;cursor:pointer;padding:21px 26px;font-size:16.5px;font-weight:600;
+  display:flex;align-items:center;gap:16px;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{
+  content:"";margin-left:auto;flex:0 0 auto;width:11px;height:11px;
+  border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);
+  transform:rotate(45deg);transition:transform .2s;
+}
+.faq details[open] summary::after{transform:rotate(-135deg)}
+.faq details[open] summary{color:var(--accent)}
+.faq .ans{padding:0 26px 22px;color:var(--text-2);font-size:15px;max-width:76ch}
+.faq .ans p:last-child{margin-bottom:0}
+
+/* ---- 16 форма ---- */
+.form-sec{
+  background:linear-gradient(155deg,#17202C,var(--surface));
+  border:1px solid var(--line-2);border-radius:22px;padding:clamp(28px,4vw,52px);
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,52px);
+}
+@media (max-width:860px){.form-sec{grid-template-columns:1fr}}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:560px){.f-row{grid-template-columns:1fr}}
+.f-in{margin-bottom:12px}
+textarea.f-in{min-height:92px;resize:vertical;font-family:Onest,sans-serif}
+.consent{display:flex;gap:11px;font-size:13px;color:var(--muted);margin:14px 0 20px;line-height:1.45}
+.consent input{margin-top:3px;accent-color:var(--accent);width:16px;height:16px;flex:0 0 auto}
+.consent a{color:var(--text-2)}
+.ok-state{display:none;text-align:center;padding:34px 20px}
+.ok-state.on{display:block}
+.ok-state .ic{
+  width:56px;height:56px;border-radius:50%;margin:0 auto 18px;background:var(--good-bg);
+  border:1px solid rgba(61,214,140,.4);position:relative;
+}
+.ok-state .ic::after{
+  content:"";position:absolute;left:19px;top:15px;width:12px;height:22px;
+  border-right:3px solid var(--good);border-bottom:3px solid var(--good);
+  transform:rotate(43deg);border-radius:2px;
+}
+.sent-hide.off{display:none}
+
+/* ---- 17 футер ---- */
+footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--surface)}
+.f-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px;margin-bottom:40px}
+@media (max-width:760px){.f-grid{grid-template-columns:1fr;gap:28px}}
+.f-grid a{color:var(--text-2);text-decoration:none;font-size:14.5px;display:block;margin-bottom:9px}
+.f-grid a:hover{color:var(--text)}
+.f-h{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:15px}
+.f-bot{border-top:1px solid var(--line);padding-top:22px;font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:10px 24px}
+
+/* ---- 18 sticky ---- */
+.sticky{
+  position:fixed;right:24px;bottom:24px;z-index:45;display:flex;gap:10px;
+  opacity:0;transform:translateY(14px);transition:opacity .25s,transform .25s;pointer-events:none;
+}
+.sticky.on{opacity:1;transform:none;pointer-events:auto}
+.sticky .btn{box-shadow:0 16px 40px -14px #000,0 8px 28px -12px rgba(255,92,43,.9)}
+@media (max-width:760px){
+  .sticky{left:12px;right:12px;bottom:12px}
+  .sticky .btn{flex:1;padding:15px 14px;font-size:15px}
+}
+.exit-pop{
+  position:fixed;inset:0;z-index:60;background:rgba(4,7,12,.72);backdrop-filter:blur(6px);
+  display:none;align-items:center;justify-content:center;padding:24px;
+}
+.exit-pop.on{display:flex}
+.exit-in{background:var(--surface);border:1px solid var(--line-2);border-radius:20px;padding:36px;max-width:440px;width:100%;position:relative}
+.exit-x{position:absolute;top:14px;right:16px;background:none;border:0;color:var(--muted);font-size:24px;cursor:pointer;line-height:1;padding:6px}
+
+.pill-note{
+  display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--amber);
+  background:rgba(255,176,32,.09);border:1px solid rgba(255,176,32,.28);
+  padding:8px 13px;border-radius:9px;margin-top:16px;
+}
+</style>
+
+<header class="top">
+  <div class="wrap top-in">
+    <span class="logo">Магазин<em>Селлера</em></span>
+    <span class="proto-chip">прототип</span>
+    <nav class="top-nav">
+      <a href="#calc">Калькулятор</a>
+      <a href="#compare">Сравнение</a>
+      <a href="#cases">Кейсы</a>
+      <a href="#price">Цена</a>
+      <a href="#faq">Вопросы</a>
+    </nav>
+    <a class="btn btn-primary" href="#lead">Рассчитать</a>
+  </div>
+</header>
+
+<!-- ============ 01. ПЕРВЫЙ ЭКРАН ============ -->
+<section class="hero" id="top">
+  <div class="wrap hero-in">
+    <div>
+      <div class="platforms">
+        <span class="plat wb">Для селлеров на <b>Wildberries</b></span>
+        <span class="plat oz"><b>Ozon</b></span>
+        <span class="plat ym"><b>Яндекс Маркете</b></span>
+      </div>
+      <h1>Свой интернет-магазин — и маркетплейс больше <em>не забирает половину оборота</em></h1>
+      <p class="hero-sub">Под ключ за 10 дней и 49 900 ₽. Перенесём товары с площадки, подключим оплату, доставку и МойСклад.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#calc">Посчитать мои потери</a>
+        <a class="btn btn-ghost" href="#cases">Смотреть примеры</a>
+      </div>
+      <div class="trust">
+        <span><i class="dot"></i><b>100+</b> проектов</span>
+        <span><i class="dot"></i>с <b>2015 года</b></span>
+        <span><i class="dot"></i>офис в <b>Москве</b></span>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="cap">Комиссия площадки доходит до</div>
+      <div class="num big">60&thinsp;%</div>
+      <p class="note">от каждой продажи — вместе с логистикой, хранением, эквайрингом и штрафами</p>
+      <div class="bars">
+        <div class="bar-row">
+          <div class="bl"><span>Остаётся вам на маркетплейсе</span><b style="color:var(--bad)">40&thinsp;%</b></div>
+          <div class="track"><div class="fill bad" style="width:40%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bl"><span>Остаётся вам в своём магазине</span><b style="color:var(--good)">94&thinsp;%</b></div>
+          <div class="track"><div class="fill good" style="width:94%"></div></div>
+        </div>
+      </div>
+      <p class="note" style="margin:18px 0 0;font-size:13px">В своём магазине из оборота уходит только эквайринг и доставка</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02. КАЛЬКУЛЯТОР ПОТЕРЬ ============ -->
+<section id="calc">
+  <div class="wrap">
+    <p class="eyebrow">Считаем на ваших цифрах</p>
+    <h2>Сколько вы отдаёте площадке за год</h2>
+    <p class="sec-lead">Подставьте свой оборот и ставку комиссии — увидите сумму, которая уходит маркетплейсу вместо вашей прибыли.</p>
+
+    <div class="calc" style="margin-top:34px">
+      <div>
+        <div class="field">
+          <label for="turn">Оборот на маркетплейсе, ₽ в месяц</label>
+          <input type="number" id="turn" value="1500000" min="50000" step="50000" inputmode="numeric">
+        </div>
+        <div class="field">
+          <label for="comm">Комиссия площадки <span class="range-val" id="commV">38&thinsp;%</span></label>
+          <input type="range" id="comm" min="10" max="60" value="38" step="1">
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <label for="cat">Категория товара</label>
+          <select id="cat">
+            <option>Одежда и обувь</option>
+            <option>Красота и здоровье</option>
+            <option>Электроника</option>
+            <option>Дом и мебель</option>
+            <option>Детские товары</option>
+            <option>Продукты и БАДы</option>
+            <option>Другое</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="calc-out">
+        <div class="lbl">Уходит площадке за год</div>
+        <div class="num money" id="loss">6 840 000 ₽</div>
+        <div class="sub">это <span id="lossM">570 000 ₽</span> каждый месяц</div>
+        <div class="calc-split">
+          <div>На маркетплейсе остаётся<span class="v" id="keepMp" style="color:var(--bad)">930 000 ₽</span></div>
+          <div>В своём магазине<span class="v" id="keepOwn" style="color:var(--good)">1 410 000 ₽</span></div>
+        </div>
+        <a class="btn btn-primary btn-block" href="#lead">Получить полный расчёт</a>
+        <p class="dim" style="font-size:12.5px;margin:14px 0 0">Расчёт приблизительный: своя площадка забирает ~6&thinsp;% на эквайринг и доставку</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03. СРАВНЕНИЕ ============ -->
+<section id="compare">
+  <div class="wrap">
+    <p class="eyebrow">Ядро вопроса</p>
+    <h2>Маркетплейс против своего магазина</h2>
+    <p class="sec-lead">Девять пунктов, по которым площадка решает за вас — и по которым в своём магазине решаете вы.</p>
+
+    <div class="cmp" style="margin-top:34px">
+      <div class="cmp-head">
+        <div>Что решается</div>
+        <div class="h-bad">Маркетплейс</div>
+        <div class="h-good">Свой магазин</div>
+      </div>
+      <div class="cmp-row"><div class="c-name">Комиссии</div><div class="c-bad">До 60&thinsp;% с продажи вместе с логистикой и хранением</div><div class="c-good">Комиссии нет. Только эквайринг и доставка</div></div>
+      <div class="cmp-row"><div class="c-name">Политика возвратов</div><div class="c-bad">Условия устанавливает площадка</div><div class="c-good">Условия устанавливаете вы</div></div>
+      <div class="cmp-row"><div class="c-name">Цены и скидки</div><div class="c-bad">Площадка может снизить цену и включить вас в акцию</div><div class="c-good">Цены и скидки полностью под вашим контролем</div></div>
+      <div class="cmp-row"><div class="c-name">Отзывы</div><div class="c-bad">Нельзя верифицировать, модерировать или отвечать по-своему</div><div class="c-good">Полный контроль над отзывами</div></div>
+      <div class="cmp-row"><div class="c-name">Скорость оборота денег</div><div class="c-bad">Деньги заморожены на дни и недели</div><div class="c-good">Оплата поступает на счёт сразу</div></div>
+      <div class="cmp-row"><div class="c-name">Данные покупателей</div><div class="c-bad">Забирает площадка, вы их не получаете</div><div class="c-good">Ваши: повторные продажи, рассылки, аналитика</div></div>
+      <div class="cmp-row"><div class="c-name">Конкуренция</div><div class="c-bad">Рядом с вашим товаром — карточки конкурентов</div><div class="c-good">На сайте только ваши товары</div></div>
+      <div class="cmp-row"><div class="c-name">Правила игры</div><div class="c-bad">Меняются без предупреждения, комиссии растут</div><div class="c-good">Правила устанавливаете вы</div></div>
+      <div class="cmp-row"><div class="c-name">Доступность с VPN</div><div class="c-bad">Площадки ограничивают VPN-трафик — товар не увидят</div><div class="c-good">Сайт открывается всегда, трафик не теряется</div></div>
+    </div>
+
+    <div style="display:flex;justify-content:center;margin-top:30px">
+      <a class="btn btn-primary" href="#lead">Хочу свой магазин</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04. ЧТО ВХОДИТ ============ -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Состав работ</p>
+    <h2>Что входит за 49 900 ₽</h2>
+    <p class="sec-lead">Фиксированная цена. Всё, что нужно, чтобы магазин принимал заказы с первого дня.</p>
+
+    <div class="grid g2" style="margin-top:34px">
+      <div class="card">
+        <h4 style="margin-bottom:18px">Страницы сайта</h4>
+        <ul class="checks">
+          <li>Главная</li><li>Каталог и разделы каталога</li><li>Карточка товара</li>
+          <li>Корзина и оформление заказа</li><li>Оплата, доставка, возврат</li>
+          <li>Успешный и неуспешный платёж</li><li>Страница благодарности</li>
+          <li>Политика, согласие на обработку данных, оферта</li><li>Страница 404</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4 style="margin-bottom:18px">Функционал</h4>
+        <ul class="checks">
+          <li>До 500 товаров в каталоге</li><li>Перенос карточек с маркетплейса</li>
+          <li>Приём онлайн-оплаты — 1 сервис эквайринга</li><li>3 службы доставки</li>
+          <li>Уведомления о заказах в Telegram и на почту</li>
+          <li>Админка: товары, заказы, клиенты</li>
+          <li>Мобильная версия</li><li>Оформление по 152-ФЗ</li>
+          <li>Подключение Яндекс.Метрики с целями</li>
+        </ul>
+      </div>
+    </div>
+    <span class="pill-note">Состав уточняется — ждём подтверждения от заказчика</span>
+  </div>
+</section>
+
+<!-- ============ 05. ПЕРЕНОС ТОВАРОВ ============ -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Ключевое отличие</p>
+    <h2>Перенесём товары с маркетплейса</h2>
+    <p class="sec-lead">Вручную ничего переносить не нужно. Каталог заберём из вашего личного кабинета.</p>
+
+    <div class="steps" style="margin-top:34px">
+      <div class="step"><h4>Выгружаем каталог</h4><p>Забираем товары из личного кабинета Wildberries или Ozon по API. Если API недоступен — из выгрузки Excel.</p></div>
+      <div class="step"><h4>Собираем карточки</h4><p>Фотографии, описания, характеристики, цены и остатки переносим в карточки нового магазина.</p></div>
+      <div class="step"><h4>Раскладываем по разделам</h4><p>Строим структуру каталога, настраиваем фильтры и связи между товарами. Магазин готов к продажам.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06. ИНТЕГРАЦИИ ============ -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Подключаем</p>
+    <h2>Интеграции</h2>
+    <p class="sec-lead">Оплата, доставка, складской учёт и уведомления — настраиваем на нашей стороне.</p>
+
+    <div style="margin-top:34px">
+      <div class="int-group"><div class="gt">Приём оплаты</div><div class="chips">
+        <span class="chip">ЮKassa</span><span class="chip">Точка</span><span class="chip">Ozon Pay</span>
+        <span class="chip">СберБанк</span><span class="chip">Т-Банк</span><span class="chip">Робокасса</span>
+      </div></div>
+      <div class="int-group"><div class="gt">Доставка</div><div class="chips">
+        <span class="chip">СДЭК</span><span class="chip">Почта России</span><span class="chip">Boxberry</span>
+        <span class="chip">Яндекс Доставка</span><span class="chip">5Post</span><span class="chip">DPD</span>
+      </div></div>
+      <div class="int-group"><div class="gt">Складской учёт</div><div class="chips">
+        <span class="chip">МойСклад</span><span class="chip">1С</span><span class="chip">Wildberries</span><span class="chip">Ozon</span>
+      </div></div>
+      <div class="int-group" style="margin-bottom:0"><div class="gt">Уведомления и аналитика</div><div class="chips">
+        <span class="chip">Telegram</span><span class="chip">E-mail</span><span class="chip">SMS</span>
+        <span class="chip">Яндекс.Метрика</span><span class="chip">Яндекс.Директ</span>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07. КЕЙСЫ ============ -->
+<section id="cases">
+  <div class="wrap">
+    <p class="eyebrow">Портфолио</p>
+    <h2>Магазины, которые мы запустили</h2>
+    <p class="sec-lead">Более ста проектов с 2015 года: интернет-магазины, каталоги, лендинги.</p>
+
+    <div class="cases" style="margin-top:34px">
+      <div class="case wide">
+        <img class="shot" src="{{IMG_tecona}}" alt="Интернет-магазин мебели Tecona" width="860" height="484" loading="lazy">
+        <div class="body">
+          <span class="cat">Мебель для HoReCa</span>
+          <span class="nm">Tecona<span class="badge-new">свежий</span></span>
+          <p class="ds">Магазин мягкой мебели для кафе, ресторанов и гостиниц. Каталог, подбор по параметрам, 3D-визуализация проекта.</p>
+          <a class="lk" href="https://tecona.ru/" target="_blank" rel="noopener">tecona.ru →</a>
+        </div>
+      </div>
+      <div class="case wide case-sum">
+        <div class="body">
+          <span class="cat">Портфолио целиком</span>
+          <span class="nm" style="font-size:clamp(26px,3.4vw,38px);font-family:Unbounded,sans-serif;font-weight:800;letter-spacing:-.03em;line-height:1.05">Больше<br>ста проектов</span>
+          <p class="ds" style="margin-top:8px">Интернет-магазины, каталоги и лендинги с 2015 года — от фермерских продуктов до спецтехники. Ниже — часть работ по товарным нишам.</p>
+          <a class="lk" href="https://addu.ru/portfolio-new/" target="_blank" rel="noopener">Всё портфолио →</a>
+        </div>
+      </div>
+
+      <div class="case"><img class="shot" src="{{IMG_c1}}" alt="Лавка цветов" width="640" height="420" loading="lazy"><div class="body"><span class="cat">Цветы и подарки</span><span class="nm">Лавка цветов</span><p class="ds">Магазин букетов и подарков с доставкой: каталог, корзина, оплата онлайн.</p></div></div>
+      <div class="case"><img class="shot" src="{{IMG_c2}}" alt="Копаешь.ру" width="640" height="420" loading="lazy"><div class="body"><span class="cat">Спецтехника</span><span class="nm">Копаешь.ру</span><p class="ds">Портал аренды и продажи спецтехники с каталогом и заявками.</p></div></div>
+      <div class="case"><img class="shot" src="{{IMG_c5}}" alt="KLUDISTORE" width="640" height="420" loading="lazy"><div class="body"><span class="cat">Сантехника</span><span class="nm">KLUDISTORE</span><p class="ds">Магазин сантехники: каталог брендов, фильтры, онлайн-оплата.</p></div></div>
+      <div class="case"><img class="shot" src="{{IMG_c6}}" alt="AGUCCI" width="640" height="420" loading="lazy"><div class="body"><span class="cat">Детские товары</span><span class="nm">AGUCCI</span><p class="ds">Интернет-магазин детских товаров с размерными сетками и доставкой.</p></div></div>
+      <div class="case"><img class="shot" src="{{IMG_c9}}" alt="Упак Союз" width="640" height="420" loading="lazy"><div class="body"><span class="cat">Упаковка</span><span class="nm">Упак Союз</span><p class="ds">Объединение производителей упаковки: каталог, опт, расчёт заказа.</p></div></div>
+      <div class="case"><img class="shot" src="{{IMG_c10}}" alt="СлесЛес" width="640" height="420" loading="lazy"><div class="body"><span class="cat">Садовый центр</span><span class="nm">СлесЛес</span><p class="ds">Московский садовый центр: растения, сезонный каталог, доставка.</p></div></div>
+      <div class="case"><img class="shot" src="{{IMG_c15}}" alt="Егорьевский мёд" width="640" height="420" loading="lazy"><div class="body"><span class="cat">Продукты</span><span class="nm">Егорьевский мёд</span><p class="ds">Магазин фермерских хозяйств — производителей мёда.</p></div></div>
+      <div class="case"><img class="shot" src="{{IMG_c17}}" alt="BIO-RAN" width="640" height="420" loading="lazy"><div class="body"><span class="cat">Очистка воды</span><span class="nm">BIO-RAN</span><p class="ds">Решения для очистки воды: каталог систем, подбор, заявка.</p></div></div>
+      <div class="case"><img class="shot" src="{{IMG_c18}}" alt="Diamand Pro" width="640" height="420" loading="lazy"><div class="body"><span class="cat">Мебельные фасады</span><span class="nm">Diamand Pro</span><p class="ds">Производство мебельных фасадов и мебели на заказ.</p></div></div>
+      <div class="case"><img class="shot" src="{{IMG_c23}}" alt="Рус Фермер" width="640" height="420" loading="lazy"><div class="body"><span class="cat">Эко-продукты</span><span class="nm">Рус Фермер</span><p class="ds">Экологически чистые продукты от фермеров с доставкой по региону.</p></div></div>
+    </div>
+    <span class="pill-note">Проверил домены: из старого портфолио живёт только tecona.ru — на остальные ссылок не ставим</span>
+  </div>
+</section>
+
+<!-- ============ 08. КАК ПРОХОДИТ РАБОТА ============ -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Процесс</p>
+    <h2>Магазин за 10 рабочих дней</h2>
+    <p class="sec-lead">Без затянутых согласований: каждый этап закрывается в свой срок.</p>
+
+    <div class="tl" style="margin-top:34px">
+      <div class="tl-i"><div class="d">Дни 1–2</div><h4>Бриф и структура</h4><p>Разбираем ассортимент, собираем структуру каталога и карту сайта.</p></div>
+      <div class="tl-i"><div class="d">Дни 3–5</div><h4>Дизайн</h4><p>Главная, каталог и карточка товара в вашем фирменном стиле.</p></div>
+      <div class="tl-i"><div class="d">Дни 6–8</div><h4>Сборка и каталог</h4><p>Верстаем магазин и переносим товары с маркетплейса.</p></div>
+      <div class="tl-i"><div class="d">День 9</div><h4>Интеграции и тесты</h4><p>Оплата, доставка, уведомления, тестовые заказы.</p></div>
+      <div class="tl-i"><div class="d">День 10</div><h4>Запуск</h4><p>Переносим на ваш домен и передаём доступы к админке.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 09. ЦЕНА ============ -->
+<section id="price">
+  <div class="wrap">
+    <p class="eyebrow">Стоимость</p>
+    <h2>Один тариф, фиксированная цена</h2>
+    <p class="sec-lead">Без «от» и пересчётов по ходу работы. Что не входит — написали честно рядом.</p>
+
+    <div class="price-wrap" style="margin-top:34px">
+      <div class="price-main">
+        <div class="tag">Интернет-магазин под ключ</div>
+        <div class="num val">49 900 ₽</div>
+        <div class="per">запуск за 10 рабочих дней</div>
+        <ul class="checks">
+          <li>До 500 товаров с переносом с маркетплейса</li>
+          <li>Каталог, карточки, корзина, оформление заказа</li>
+          <li>Эквайринг и 3 службы доставки</li>
+          <li>Админка для товаров, заказов и клиентов</li>
+          <li>Документы по 152-ФЗ и оферта</li>
+          <li>Метрика с целями на все формы</li>
+        </ul>
+        <a class="btn btn-primary btn-block" href="#lead" style="margin-top:26px">Заказать магазин</a>
+        <p class="price-note">Аналогичные решения на рынке — от 110 000 ₽</p>
+      </div>
+
+      <div class="price-side">
+        <h3>Что не входит</h3>
+        <p class="hint">Считаем отдельно — чтобы фиксированная цена оставалась честной.</p>
+        <ul class="checks minus">
+          <li>Каталог больше 500 товаров</li>
+          <li>Личный кабинет покупателя</li>
+          <li>Промокоды и динамические скидки</li>
+          <li>Нестандартные интеграции и доработки</li>
+          <li>Поддержка после первого месяца</li>
+          <li>Реклама, SEO и наполнение контентом</li>
+        </ul>
+        <span class="pill-note">Цены на допработы — ждём от заказчика</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10. ОТСТРОЙКА ОТ ПЛАТФОРМ ============ -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Частый вопрос</p>
+    <h2>А чем это лучше бесплатных платформ</h2>
+    <p class="sec-lead">Яндекс КИТ и InSales действительно дешевле на старте. Разница — в том, кому принадлежит магазин.</p>
+
+    <div class="vs" style="margin-top:34px">
+      <table class="vs-t">
+        <thead><tr>
+          <th>Что важно</th><th class="us">Свой магазин с нами</th><th>Яндекс КИТ</th><th>InSales</th><th>Tilda</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>Кому принадлежит код сайта</td><td class="us"><span class="yes">Вам</span>, отдаём исходники</td><td><span class="no">Остаётся у Яндекса</span></td><td><span class="no">У платформы</span></td><td><span class="no">У платформы</span></td></tr>
+          <tr><td>Ежемесячная плата за платформу</td><td class="us"><span class="yes">Нет</span></td><td>Нет, но привязка</td><td><span class="no">Есть, навсегда</span></td><td><span class="no">Есть, навсегда</span></td></tr>
+          <tr><td>Лимит товаров</td><td class="us"><span class="yes">По задаче</span></td><td>По правилам платформы</td><td><span class="no">По тарифу</span></td><td><span class="no">По тарифу</span></td></tr>
+          <tr><td>Дизайн</td><td class="us"><span class="yes">Под ваш бренд</span></td><td><span class="no">Готовые шаблоны</span></td><td><span class="no">Готовые шаблоны</span></td><td>Шаблон или блоки</td></tr>
+          <tr><td>Переезд на другой хостинг</td><td class="us"><span class="yes">Свободно</span></td><td><span class="no">Невозможен</span></td><td><span class="no">Сложно</span></td><td><span class="no">Сложно</span></td></tr>
+          <tr><td>Что можно продавать</td><td class="us"><span class="yes">Товары и услуги</span></td><td><span class="no">Только физические товары</span></td><td>Товары</td><td>Товары</td></tr>
+          <tr><td>Кто делает</td><td class="us"><span class="yes">Мы, под ключ</span></td><td>Вы сами</td><td>Вы сами</td><td>Вы или подрядчик</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="dim" style="font-size:13.5px;margin-top:16px">Цитата из раздела «Вопрос-ответ» Яндекс&nbsp;КИТ: «Домен, клиентская база и все данные по заказам — ваши. На стороне Яндекса остаётся только код сайта».</p>
+  </div>
+</section>
+
+<!-- ============ 11. БОНУСЫ ============ -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Сверх работ</p>
+    <h2>Что даём в подарок</h2>
+    <p class="sec-lead">То, на что обычно уходит отдельный бюджет и неделя поиска подрядчиков.</p>
+
+    <div class="grid g3" style="margin-top:34px">
+      <div class="bonus"><span class="save">экономия — ₽</span><h4>Документы по 152-ФЗ</h4><p>Политика обработки данных, согласия, оферта, условия оплаты и доставки.</p></div>
+      <div class="bonus"><span class="save">экономия — ₽</span><h4>Месяц поддержки</h4><p>Поможем добавить товары, поправить тексты и создать новый раздел каталога.</p></div>
+      <div class="bonus"><span class="save">экономия — ₽</span><h4>Настройка аналитики</h4><p>Яндекс.Метрика с целями на каждую форму, вебвизор и карта скроллинга.</p></div>
+      <div class="bonus"><span class="save">экономия — ₽</span><h4>Промокод МойСклад</h4><p>Бесплатный доступ к сервису складского учёта на месяц.</p></div>
+      <div class="bonus"><span class="save">экономия — ₽</span><h4>Консультация по Директу</h4><p>Разберём, с каких кампаний начинать и какой бюджет закладывать.</p></div>
+      <div class="bonus"><span class="save">экономия — ₽</span><h4>Оптимизация скорости</h4><p>Быстрая загрузка и мобильная версия — дешевле клик в рекламе.</p></div>
+    </div>
+    <span class="pill-note">Суммы экономии проставим, когда заказчик подтвердит состав бонусов</span>
+  </div>
+</section>
+
+<!-- ============ 12. ОТЗЫВЫ ============ -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Отзывы</p>
+    <h2>Что говорят клиенты</h2>
+    <p class="sec-lead">Блок готов, ждём реальные отзывы с именем и компанией. Выдуманные ставить не будем.</p>
+
+    <div class="grid g3" style="margin-top:34px">
+      <div class="rev-empty"><div class="ph-line"></div><div class="ph-line"></div><div class="ph-line s"></div><div class="who"><div class="av"></div><div><div class="cap">Имя, компания</div></div></div></div>
+      <div class="rev-empty"><div class="ph-line"></div><div class="ph-line"></div><div class="ph-line s"></div><div class="who"><div class="av"></div><div><div class="cap">Имя, компания</div></div></div></div>
+      <div class="rev-empty"><div class="ph-line"></div><div class="ph-line"></div><div class="ph-line s"></div><div class="who"><div class="av"></div><div><div class="cap">Имя, компания</div></div></div></div>
+    </div>
+    <span class="pill-note">Блокер: нужны 2–3 отзыва от заказчика</span>
+  </div>
+</section>
+
+<!-- ============ 13. О КОМПАНИИ ============ -->
+<section>
+  <div class="wrap about">
+    <div>
+      <p class="eyebrow">О нас</p>
+      <h2>Не фрилансер, а агентство с офисом</h2>
+      <p class="sec-lead" style="margin-bottom:22px">Работаем с 2015 года. Юрлицо, договор, офис в Москве — можно приехать и посмотреть в глаза. После запуска магазин не бросаем: ведём поддержку, рекламу и продвижение.</p>
+      <ul class="checks">
+        <li>Договор и закрывающие документы</li>
+        <li>Свои разработчики, дизайнеры и SEO-специалисты</li>
+        <li>Поддержка, реклама и продвижение после запуска</li>
+      </ul>
+      <p class="dim" style="font-size:14px;margin-top:22px">
+        Москва, ул. Флотская, д. 5, к. 2, офис 601 — м. Речной вокзал<br>
+        <a href="tel:+74951503200" style="color:var(--text)">+7 (495) 150-32-00</a>
+      </p>
+      <span class="pill-note">ИНН и ОГРН добавим после получения реквизитов</span>
+    </div>
+    <div class="facts">
+      <div class="fact"><div class="num v">100+</div><div class="k">проектов сделано</div></div>
+      <div class="fact"><div class="num v">2015</div><div class="k">год основания</div></div>
+      <div class="fact"><div class="num v">10</div><div class="k">рабочих дней на магазин</div></div>
+      <div class="fact"><div class="num v">5</div><div class="k">направлений: сайты, поддержка, SEO, SMM, репутация</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 14. КВИЗ ============ -->
+<section id="quiz">
+  <div class="wrap">
+    <p class="eyebrow">2 минуты</p>
+    <h2>Сколько вы теряете на маркетплейсе</h2>
+    <p class="sec-lead">Ответьте на шесть вопросов — пришлём персональный расчёт и план запуска магазина.</p>
+
+    <div class="quiz" style="margin-top:34px">
+      <div class="quiz-bar"><i id="qbar"></i></div>
+
+      <div class="quiz-step on" data-step="1">
+        <div class="quiz-q">Какой у вас оборот на маркетплейсах?</div>
+        <div class="opts">
+          <button class="opt" type="button"><i class="rd"></i>До 300 000 ₽ в месяц</button>
+          <button class="opt" type="button"><i class="rd"></i>300 000 — 1 000 000 ₽</button>
+          <button class="opt" type="button"><i class="rd"></i>1 000 000 — 5 000 000 ₽</button>
+          <button class="opt" type="button"><i class="rd"></i>Больше 5 000 000 ₽</button>
+        </div>
+      </div>
+      <div class="quiz-step" data-step="2">
+        <div class="quiz-q">На каких площадках продаёте?</div>
+        <div class="opts">
+          <button class="opt" type="button"><i class="rd"></i>Только Wildberries</button>
+          <button class="opt" type="button"><i class="rd"></i>Только Ozon</button>
+          <button class="opt" type="button"><i class="rd"></i>Wildberries и Ozon</button>
+          <button class="opt" type="button"><i class="rd"></i>Три площадки и больше</button>
+        </div>
+      </div>
+      <div class="quiz-step" data-step="3">
+        <div class="quiz-q">Сколько площадка забирает от продажи?</div>
+        <div class="opts">
+          <button class="opt" type="button"><i class="rd"></i>До 25 %</button>
+          <button class="opt" type="button"><i class="rd"></i>25–40 %</button>
+          <button class="opt" type="button"><i class="rd"></i>Больше 40 %</button>
+          <button class="opt" type="button"><i class="rd"></i>Не считал точно</button>
+        </div>
+      </div>
+      <div class="quiz-step" data-step="4">
+        <div class="quiz-q">Есть ли у вас свой сайт сейчас?</div>
+        <div class="opts">
+          <button class="opt" type="button"><i class="rd"></i>Нет, только маркетплейсы</button>
+          <button class="opt" type="button"><i class="rd"></i>Есть сайт-визитка без корзины</button>
+          <button class="opt" type="button"><i class="rd"></i>Есть магазин, но не продаёт</button>
+          <button class="opt" type="button"><i class="rd"></i>Есть магазин, хочу переделать</button>
+        </div>
+      </div>
+      <div class="quiz-step" data-step="5">
+        <div class="quiz-q">Сколько товаров в вашем каталоге?</div>
+        <div class="opts">
+          <button class="opt" type="button"><i class="rd"></i>До 50</button>
+          <button class="opt" type="button"><i class="rd"></i>50–500</button>
+          <button class="opt" type="button"><i class="rd"></i>500–5 000</button>
+          <button class="opt" type="button"><i class="rd"></i>Больше 5 000</button>
+        </div>
+      </div>
+      <div class="quiz-step" data-step="6">
+        <div class="quiz-q">Что мешает уйти с маркетплейса?</div>
+        <div class="opts">
+          <button class="opt" type="button"><i class="rd"></i>Не знаю, откуда брать трафик</button>
+          <button class="opt" type="button"><i class="rd"></i>Кажется, что это дорого</button>
+          <button class="opt" type="button"><i class="rd"></i>Нет времени заниматься</button>
+          <button class="opt" type="button"><i class="rd"></i>Ничего, готов начать</button>
+        </div>
+      </div>
+
+      <div class="quiz-step" data-step="7">
+        <div class="quiz-q">Куда прислать расчёт?</div>
+        <form id="quizForm" novalidate>
+          <div class="f-row">
+            <input class="f-in" type="text" placeholder="Как вас зовут" required>
+            <input class="f-in" type="tel" placeholder="+7 (___) ___-__-__" required>
+          </div>
+          <label class="consent"><input type="checkbox" required><span>Согласен на обработку персональных данных на условиях <a href="#">Политики</a></span></label>
+          <button class="btn btn-primary btn-block" type="submit">Получить расчёт</button>
+        </form>
+      </div>
+
+      <div class="ok-state" id="quizOk">
+        <div class="ic"></div>
+        <h3>Спасибо, расчёт отправим в течение 20 минут</h3>
+        <p class="dim" style="margin-top:10px">Это прототип — форма ничего не отправляет</p>
+      </div>
+
+      <div class="quiz-nav" id="quizNav">
+        <button class="btn btn-ghost" type="button" id="qPrev">Назад</button>
+        <button class="btn btn-primary" type="button" id="qNext">Дальше</button>
+        <span class="quiz-count"><span id="qCur">1</span> / 7</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 15. FAQ ============ -->
+<section id="faq">
+  <div class="wrap">
+    <p class="eyebrow">Вопросы</p>
+    <h2>Что обычно спрашивают</h2>
+
+    <div class="faq" style="margin-top:34px">
+      <details open><summary>Сколько стоит интернет-магазин?</summary><div class="ans"><p>49 900 ₽ — фиксированная цена за магазин под ключ. Всё, что входит, перечислено в блоке «Стоимость», всё, что не входит, — там же рядом.</p></div></details>
+      <details><summary>За сколько дней запустите?</summary><div class="ans"><p>10 рабочих дней с момента, когда получим брифинг и доступ к каталогу. Каждый этап закрывается в свой срок — процесс расписан по дням выше.</p></div></details>
+      <details><summary>Перенесёте ли товары с Wildberries и Ozon?</summary><div class="ans"><p>Да. Забираем каталог из личного кабинета по API, а если API недоступен — из выгрузки Excel. Фото, описания, характеристики и цены переносим сами.</p></div></details>
+      <details><summary>На какой платформе будет сайт?</summary><div class="ans"><p>Пишем собственный код, а не собираем на конструкторе. Поэтому нет ежемесячной платы за платформу и нет лимитов по товарам и функционалу.</p></div></details>
+      <details><summary>Смогу ли я сам добавлять товары?</summary><div class="ans"><p>Да, вы получаете полноценную админку: товары, категории, заказы, клиенты, остатки и цены. Разбираться в коде не нужно.</p></div></details>
+      <details><summary>Чем это лучше бесплатного Яндекс КИТ или InSales?</summary><div class="ans"><p>Главное отличие — кому принадлежит магазин. На платформе код сайта остаётся у неё, дизайн ограничен шаблонами, а переехать нельзя. У нас вы получаете исходники и можете разместить сайт где угодно. Подробное сравнение — в таблице выше.</p></div></details>
+      <details><summary>Нужно ли платить за платформу каждый месяц?</summary><div class="ans"><p>Нет. Платите один раз за разработку. Дальше остаются только хостинг и домен — это порядка нескольких сотен рублей в месяц.</p></div></details>
+      <details><summary>Что с юридическими документами и 152-ФЗ?</summary><div class="ans"><p>Оформляем: политика обработки персональных данных, согласия, оферта, условия оплаты, доставки и возврата. Отдельно платить юристу не нужно.</p></div></details>
+      <details><summary>Кто будет вести сайт после запуска?</summary><div class="ans"><p>Первый месяц поддержки — в подарок: поможем добавить товары, поправить тексты, создать новый раздел. Дальше можно вести самим или оставить нас на поддержке.</p></div></details>
+      <details><summary>Что если товаров больше 500?</summary><div class="ans"><p>Считаем отдельно. Большие каталоги мы делаем — это просто выходит за рамки фиксированной цены, потому что растёт объём работы по переносу и структуре.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 16. ФИНАЛЬНАЯ ФОРМА ============ -->
+<section id="lead">
+  <div class="wrap">
+    <div class="form-sec">
+      <div>
+        <p class="eyebrow">Бесплатно</p>
+        <h2>Рассчитаем точную стоимость за 20 минут</h2>
+        <p class="sec-lead" style="margin-bottom:26px">Оставьте ссылку на свой магазин на маркетплейсе — посмотрим ассортимент заранее и придём на звонок с готовым расчётом, а не с вопросами.</p>
+        <ul class="checks">
+          <li>Перезвоним в течение 5 минут в рабочее время</li>
+          <li>Скажем точную цену и срок по вашему каталогу</li>
+          <li>Покажем похожие магазины из нашего портфолио</li>
+        </ul>
+      </div>
+
+      <div>
+        <form id="leadForm" class="sent-hide" novalidate>
+          <div class="f-row">
+            <input class="f-in" type="text" placeholder="Имя" required>
+            <input class="f-in" type="tel" placeholder="Телефон" required>
+          </div>
+          <input class="f-in" type="url" placeholder="Ссылка на магазин на маркетплейсе">
+          <textarea class="f-in" placeholder="Комментарий: сколько товаров, какие площадки"></textarea>
+          <label class="consent"><input type="checkbox" required><span>Соглашаюсь на обработку персональных данных на условиях <a href="#">Политики</a> и <a href="#">Согласия</a></span></label>
+          <button class="btn btn-primary btn-block" type="submit">Отправить заявку</button>
+          <p class="dim" style="font-size:12.5px;margin:14px 0 0;text-align:center">Перезвоним в течение 5 минут в рабочее время</p>
+        </form>
+        <div class="ok-state" id="leadOk">
+          <div class="ic"></div>
+          <h3>Заявка принята</h3>
+          <p class="dim" style="margin-top:10px">Это прототип — форма ничего не отправляет</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 17. ФУТЕР ============ -->
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <span class="logo" style="font-size:19px">Магазин<em>Селлера</em></span>
+        <p class="dim" style="font-size:14px;margin:14px 0 0;max-width:34ch">Интернет-магазины под ключ для селлеров маркетплейсов. Москва, работаем по всей России.</p>
+      </div>
+      <div>
+        <div class="f-h">Контакты</div>
+        <a href="tel:+74951503200">+7 (495) 150-32-00</a>
+        <a href="#">Telegram</a>
+        <a href="#">Почта</a>
+        <a href="#">Москва, ул. Флотская, 5к2, офис 601</a>
+      </div>
+      <div>
+        <div class="f-h">Документы</div>
+        <a href="#">Политика обработки данных</a>
+        <a href="#">Согласие на обработку данных</a>
+        <a href="#">Оферта</a>
+      </div>
+    </div>
+    <div class="f-bot">
+      <span>© 2026. Прототип лендинга, не боевая версия</span>
+      <span>Реквизиты юрлица — добавим после получения</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ 18. ПЛАВАЮЩАЯ КНОПКА ============ -->
+<div class="sticky" id="sticky">
+  <a class="btn btn-ghost" href="tel:+74951503200" style="background:var(--surface)">Позвонить</a>
+  <a class="btn btn-primary" href="#lead">Посчитать потери</a>
+</div>
+
+<div class="exit-pop" id="exitPop">
+  <div class="exit-in">
+    <button class="exit-x" id="exitX" aria-label="Закрыть">×</button>
+    <p class="eyebrow">Не уходите просто так</p>
+    <h3 style="margin-bottom:12px">Пришлём расчёт ваших потерь на комиссии</h3>
+    <p class="dim" style="font-size:14.5px">Оставьте телефон — посчитаем на ваших цифрах и покажем, за сколько окупится свой магазин.</p>
+    <form id="exitForm" novalidate>
+      <input class="f-in" type="tel" placeholder="+7 (___) ___-__-__" required>
+      <button class="btn btn-primary btn-block" type="submit">Получить расчёт</button>
+    </form>
+    <p class="dim" style="font-size:12px;margin:12px 0 0;text-align:center">Прототип — форма ничего не отправляет</p>
+  </div>
+</div>
+
+<script>
+"use strict";
+const rub = n => Math.round(n).toLocaleString("ru-RU") + " ₽";
+
+/* --- 02. калькулятор --- */
+const turn = document.getElementById("turn");
+const comm = document.getElementById("comm");
+function calc(){
+  const t = Math.max(0, Number(turn.value) || 0);
+  const c = Number(comm.value) / 100;
+  document.getElementById("commV").innerHTML = comm.value + "&thinsp;%";
+  document.getElementById("loss").textContent  = rub(t * c * 12);
+  document.getElementById("lossM").textContent = rub(t * c);
+  document.getElementById("keepMp").textContent  = rub(t * (1 - c));
+  document.getElementById("keepOwn").textContent = rub(t * 0.94);
+}
+turn.addEventListener("input", calc);
+comm.addEventListener("input", calc);
+calc();
+
+/* --- 14. квиз --- */
+const steps = [...document.querySelectorAll(".quiz-step")];
+const bar = document.getElementById("qbar"), cur = document.getElementById("qCur");
+const nav = document.getElementById("quizNav");
+let qi = 0;
+function render(){
+  steps.forEach((s, i) => s.classList.toggle("on", i === qi));
+  bar.style.width = ((qi + 1) / steps.length * 100) + "%";
+  cur.textContent = qi + 1;
+  document.getElementById("qPrev").style.visibility = qi ? "visible" : "hidden";
+  document.getElementById("qNext").style.display = qi === steps.length - 1 ? "none" : "";
+}
+document.getElementById("qNext").addEventListener("click", () => { if (qi < steps.length - 1) { qi++; render(); } });
+document.getElementById("qPrev").addEventListener("click", () => { if (qi > 0) { qi--; render(); } });
+document.querySelectorAll(".quiz-step .opt").forEach(b => {
+  b.addEventListener("click", () => {
+    [...b.closest(".opts").children].forEach(x => x.classList.remove("sel"));
+    b.classList.add("sel");
+    setTimeout(() => { if (qi < steps.length - 1) { qi++; render(); } }, 220);
+  });
+});
+render();
+
+/* --- формы: локальное состояние «отправлено» --- */
+function done(form, okId, hideNav){
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    form.style.display = "none";
+    document.getElementById(okId).classList.add("on");
+    if (hideNav) nav.style.display = "none";
+  });
+}
+done(document.getElementById("quizForm"), "quizOk", true);
+done(document.getElementById("leadForm"), "leadOk", false);
+document.getElementById("exitForm").addEventListener("submit", e => {
+  e.preventDefault();
+  e.target.innerHTML = '<p style="color:var(--good);text-align:center;font-weight:600;margin:14px 0 0">Спасибо, перезвоним</p>';
+});
+
+/* --- 18. sticky + exit-intent --- */
+const sticky = document.getElementById("sticky");
+addEventListener("scroll", () => sticky.classList.toggle("on", scrollY > 700), { passive: true });
+const pop = document.getElementById("exitPop");
+let shown = false;
+addEventListener("mouseout", e => {
+  if (!shown && !e.relatedTarget && e.clientY < 10) { pop.classList.add("on"); shown = true; }
+});
+document.getElementById("exitX").addEventListener("click", () => pop.classList.remove("on"));
+pop.addEventListener("click", e => { if (e.target === pop) pop.classList.remove("on"); });
+addEventListener("keydown", e => { if (e.key === "Escape") pop.classList.remove("on"); });
+</script>
