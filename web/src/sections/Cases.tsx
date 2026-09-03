@@ -80,10 +80,6 @@ export default function Cases() {
             <Card key={item.name} item={item} />
           ))}
         </div>
-
-        <p className="mt-8 text-[13px] text-gray-500">
-          Проверил домены: из старого портфолио живёт только tecona.ru — на остальные ссылок не ставим.
-        </p>
       </Container>
     </section>
   )

@@ -1,4 +1,4 @@
-import { CheckList, Container, Pending, RollButton, SectionBadge, SectionTitle } from '../ui'
+import { CheckList, Container, RollButton, SectionBadge, SectionTitle } from '../ui'
 import { PRICE, PRICE_EXCLUDES, PRICE_INCLUDES } from '../content'
 
 export default function Pricing() {
@@ -35,7 +35,6 @@ export default function Pricing() {
               Считаем отдельно — чтобы фиксированная цена оставалась честной.
             </p>
             <CheckList items={PRICE_EXCLUDES} tone="bad" />
-            <Pending>Цены на допработы — ждём от заказчика</Pending>
           </div>
         </div>
       </Container>

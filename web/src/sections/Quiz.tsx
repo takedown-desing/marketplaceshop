@@ -78,7 +78,7 @@ export default function Quiz() {
               <p className="mb-6 text-[clamp(1.15rem,2.4vw,1.6rem)] font-semibold tracking-[-0.015em] text-gray-900">
                 Куда прислать расчёт?
               </p>
-              <div className="mb-3 grid gap-3 sm:grid-cols-2">
+              <div className="mb-5 grid gap-3 sm:grid-cols-2">
                 <input
                   required
                   placeholder="Как вас зовут"
@@ -91,13 +91,13 @@ export default function Quiz() {
                   className="rounded-xl border border-gray-200 px-4 py-3 text-[15px] outline-none focus:border-gray-900"
                 />
               </div>
-              <label className="mb-6 flex gap-3 text-[13px] leading-[1.45] text-gray-500">
+              <label className="mb-7 flex gap-3 text-[13px] leading-[1.45] text-gray-500">
                 <input required type="checkbox" className="mt-1 h-4 w-4 shrink-0 accent-[#F26522]" />
                 Согласен на обработку персональных данных на условиях Политики
               </label>
               <button
                 type="submit"
-                className="group inline-flex items-center gap-3 rounded-full bg-[#F26522] py-2 pl-6 pr-2 text-[15px] font-medium text-white"
+                className="group mb-2 inline-flex items-center gap-3 rounded-full bg-[#F26522] py-2 pl-6 pr-2 text-[15px] font-medium text-white"
               >
                 Получить расчёт
                 <span
@@ -110,7 +110,7 @@ export default function Quiz() {
           )}
 
           {!sent && (
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="mt-8 flex flex-wrap items-center gap-3 border-t border-gray-100 pt-6">
               <button
                 type="button"
                 onClick={() => setStep((s) => Math.max(0, s - 1))}
