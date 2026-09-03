@@ -29,7 +29,12 @@ export default function Calculator() {
         </SectionSubtitle>
 
         <div className="grid gap-6 rounded-2xl border border-gray-200 p-6 sm:p-8 lg:grid-cols-2 lg:gap-12 lg:p-10">
-          <div className="flex flex-col justify-center gap-6">
+          <div className="flex flex-col gap-6">
+            <p className="text-[15px] leading-[1.6] text-gray-600">
+              Поставьте свой оборот и ставку, по которой площадка забирает деньги вместе с логистикой, хранением и
+              штрафами. Справа сразу увидите годовую сумму.
+            </p>
+
             <label className="block">
               <span className="mb-2 block text-[14px] font-medium text-gray-700">
                 Оборот на маркетплейсе, ₽ в месяц
