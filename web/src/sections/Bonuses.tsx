@@ -1,4 +1,4 @@
-import { Container, Pending, SectionBadge, SectionTitle } from '../ui'
+import { Container, IconTile, Pending, SectionBadge, SectionTitle } from '../ui'
 import { BONUSES } from '../content'
 
 export default function Bonuses() {
@@ -14,9 +14,12 @@ export default function Bonuses() {
         <div className="grid gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
           {BONUSES.map((bonus) => (
             <div key={bonus.title} className="rounded-2xl bg-white p-6 sm:p-7">
-              <span className="mb-4 inline-block rounded-md border border-amber-300/60 bg-amber-50 px-2.5 py-1 text-[11px] font-medium text-amber-700">
-                экономия — ₽
-              </span>
+              <div className="mb-5 flex items-start justify-between gap-3">
+                <IconTile name={bonus.icon} tone="accent" size="lg" />
+                <span className="rounded-md border border-amber-300/60 bg-amber-50 px-2.5 py-1 text-[11px] font-medium text-amber-700">
+                  экономия — ₽
+                </span>
+              </div>
               <h3 className="mb-2 text-[17px] font-semibold text-gray-900">{bonus.title}</h3>
               <p className="text-[14px] leading-[1.55] text-gray-600">{bonus.text}</p>
             </div>

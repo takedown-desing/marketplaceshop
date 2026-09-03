@@ -1,5 +1,13 @@
 import type { ReactNode } from 'react'
-import { ArrowRight } from 'lucide-react'
+import {
+  ArrowRight, BarChart3, Bell, Boxes, Check as CheckGlyph, ClipboardList, Code2, CreditCard,
+  Download, FileCheck2, FileText, FolderTree, Gauge, Globe, Home, Images, LayoutGrid, LifeBuoy,
+  Megaphone, MessageSquare, Minus, Package, Palette, PartyPopper, Percent, Plug, Receipt, Rocket,
+  Scale, SearchX, ShieldCheck, ShoppingCart, SlidersHorizontal, Smartphone, Swords, Tag, Ticket,
+  Truck, Undo2, Users, Wallet, X,
+} from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
+import type { IconName } from './content'
 
 /** Единое замедление для всех наведений — из дизайн-спеки. */
 export const EASE = 'duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)]'
@@ -113,13 +121,9 @@ export function Check({ tone = 'good' }: { tone?: 'good' | 'bad' }) {
       aria-hidden="true"
     >
       {good ? (
-        <svg viewBox="0 0 12 12" className="h-[10px] w-[10px] text-emerald-600">
-          <path d="M2 6.2 4.6 8.8 10 3.2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+        <CheckGlyph size={11} strokeWidth={2.6} className="text-emerald-600" />
       ) : (
-        <svg viewBox="0 0 12 12" className="h-[10px] w-[10px] text-red-500">
-          <path d="M2.6 6h6.8" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        </svg>
+        <Minus size={11} strokeWidth={2.6} className="text-red-500" />
       )}
     </span>
   )
@@ -148,5 +152,98 @@ export function Pending({ children }: { children: ReactNode }) {
     <span className="mt-4 inline-flex items-center gap-2 rounded-lg border border-amber-300/60 bg-amber-50 px-3 py-2 text-[12px] text-amber-800 sm:text-[13px]">
       {children}
     </span>
+  )
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Иконки. Берём готовый набор lucide-react и подключаем только то,
+   что реально используется, — весь набор в бандл не тянем.
+   ──────────────────────────────────────────────────────────────── */
+
+const ICONS: Record<string, LucideIcon> = {
+  BarChart3, Bell, Boxes, Check: CheckGlyph, ClipboardList, Code2, CreditCard, Download, FileCheck2,
+  FileText, FolderTree, Gauge, Globe, Home, Images, LayoutGrid, LifeBuoy, Megaphone, MessageSquare,
+  Minus, Package, Palette, PartyPopper, Percent, Plug, Receipt, Rocket, Scale, SearchX, ShieldCheck,
+  ShoppingCart, SlidersHorizontal, Smartphone, Swords, Tag, Ticket, Truck, Undo2, Users, Wallet, X,
+}
+
+export function Icon({ name, size = 16, className = '' }: { name: IconName; size?: number; className?: string }) {
+  const Cmp = ICONS[name] ?? CheckGlyph
+  return <Cmp size={size} className={className} strokeWidth={2} aria-hidden="true" />
+}
+
+/** Иконка в квадратной подложке — единый приём для всех перечислений. */
+export function IconTile({
+  name,
+  tone = 'neutral',
+  size = 'md',
+}: {
+  name: IconName
+  tone?: 'neutral' | 'accent' | 'good' | 'bad'
+  size?: 'sm' | 'md' | 'lg'
+}) {
+  const box =
+    size === 'lg' ? 'h-11 w-11 rounded-[13px]' : size === 'sm' ? 'h-7 w-7 rounded-[8px]' : 'h-9 w-9 rounded-[10px]'
+  const px = size === 'lg' ? 20 : size === 'sm' ? 14 : 17
+  const skin = {
+    neutral: 'bg-gray-100 text-gray-500',
+    accent: 'bg-[#F26522]/10 text-[#F26522]',
+    good: 'bg-emerald-50 text-emerald-600',
+    bad: 'bg-red-50 text-red-500',
+  }[tone]
+  return (
+    <span className={`flex shrink-0 items-center justify-center ${box} ${skin}`}>
+      <Icon name={name} size={px} />
+    </span>
+  )
+}
+
+/** Круглая пометка «да / нет» для сравнительных таблиц. */
+export function Verdict({ ok }: { ok: boolean }) {
+  return (
+    <span
+      className={`mt-[1px] flex h-[20px] w-[20px] shrink-0 items-center justify-center rounded-full ${
+        ok ? 'bg-emerald-600 text-white' : 'bg-red-100 text-red-500'
+      }`}
+      aria-hidden="true"
+    >
+      {ok ? <CheckGlyph size={12} strokeWidth={3} /> : <X size={12} strokeWidth={3} />}
+    </span>
+  )
+}
+
+/** Перечисление с тематической иконкой на каждый пункт. */
+export function IconList({
+  items,
+  tone = 'neutral',
+}: {
+  items: [string, IconName][]
+  tone?: 'neutral' | 'accent' | 'good'
+}) {
+  return (
+    <ul className="flex flex-col gap-3">
+      {items.map(([label, icon]) => (
+        <li key={label} className="flex items-center gap-3 text-[14.5px] leading-[1.45] text-gray-700 sm:text-[15px]">
+          <IconTile name={icon} tone={tone} size="sm" />
+          <span>{label}</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+/** Перечисление «этого нет» — минус в круге, без тематических иконок. */
+export function MinusList({ items }: { items: string[] }) {
+  return (
+    <ul className="flex flex-col gap-3">
+      {items.map((item) => (
+        <li key={item} className="flex items-center gap-3 text-[14.5px] leading-[1.45] text-gray-500 sm:text-[15px]">
+          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-gray-200 text-gray-400">
+            <Minus size={14} strokeWidth={2.5} aria-hidden="true" />
+          </span>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
   )
 }

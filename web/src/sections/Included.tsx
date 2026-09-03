@@ -1,4 +1,4 @@
-import { CheckList, Container, Pending, SectionBadge, SectionSubtitle, SectionTitle } from '../ui'
+import { Container, IconList, IconTile, Pending, SectionBadge, SectionSubtitle, SectionTitle } from '../ui'
 import { FEATURES_INCLUDED, INTEGRATIONS, MIGRATION_STEPS, PAGES_INCLUDED, PRICE } from '../content'
 
 export default function Included() {
@@ -11,11 +11,11 @@ export default function Included() {
         <div className="grid gap-5 sm:gap-6 lg:grid-cols-2">
           <div className="rounded-2xl border border-gray-200 p-6 sm:p-8">
             <h3 className="mb-5 text-[17px] font-semibold text-gray-900">Страницы сайта</h3>
-            <CheckList items={PAGES_INCLUDED} />
+            <IconList items={PAGES_INCLUDED} />
           </div>
           <div className="rounded-2xl border border-gray-200 p-6 sm:p-8">
             <h3 className="mb-5 text-[17px] font-semibold text-gray-900">Функционал</h3>
-            <CheckList items={FEATURES_INCLUDED} />
+            <IconList items={FEATURES_INCLUDED} tone="accent" />
           </div>
         </div>
         <Pending>Состав уточняется — ждём подтверждения от заказчика</Pending>
@@ -31,6 +31,9 @@ export default function Included() {
               <span className="absolute right-6 top-5 text-[44px] font-medium leading-none tracking-[-0.03em] text-gray-300">
                 {i + 1}
               </span>
+              <div className="mb-4">
+                <IconTile name={step.icon} tone="accent" size="lg" />
+              </div>
               <h3 className="mb-3 pr-14 text-[17px] font-semibold text-gray-900">{step.title}</h3>
               <p className="text-[14px] leading-[1.6] text-gray-600 sm:text-[15px]">{step.text}</p>
             </li>
@@ -42,7 +45,10 @@ export default function Included() {
         <div className="flex flex-col gap-7">
           {INTEGRATIONS.map((group) => (
             <div key={group.group}>
-              <p className="mb-3 text-[12px] font-medium uppercase tracking-[0.12em] text-gray-400">{group.group}</p>
+              <p className="mb-3 flex items-center gap-2.5 text-[12px] font-medium uppercase tracking-[0.12em] text-gray-400">
+                <IconTile name={group.icon} size="sm" />
+                {group.group}
+              </p>
               <div className="flex flex-wrap gap-2">
                 {group.items.map((item) => (
                   <span

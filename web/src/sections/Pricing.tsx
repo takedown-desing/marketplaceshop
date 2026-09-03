@@ -1,4 +1,4 @@
-import { CheckList, Container, RollButton, SectionBadge, SectionTitle } from '../ui'
+import { Container, IconList, MinusList, RollButton, SectionBadge, SectionTitle } from '../ui'
 import { PRICE, PRICE_EXCLUDES, PRICE_INCLUDES } from '../content'
 
 export default function Pricing() {
@@ -20,7 +20,7 @@ export default function Pricing() {
               {PRICE}
             </p>
             <p className="mb-8 mt-2 text-[15px] text-gray-600">запуск за 10 рабочих дней</p>
-            <CheckList items={PRICE_INCLUDES} />
+            <IconList items={PRICE_INCLUDES} tone="good" />
             <div className="mt-8">
               <RollButton>Заказать магазин</RollButton>
             </div>
@@ -34,7 +34,7 @@ export default function Pricing() {
             <p className="mb-6 text-[14px] text-gray-600">
               Считаем отдельно — чтобы фиксированная цена оставалась честной.
             </p>
-            <CheckList items={PRICE_EXCLUDES} tone="bad" />
+            <MinusList items={PRICE_EXCLUDES} />
           </div>
         </div>
       </Container>

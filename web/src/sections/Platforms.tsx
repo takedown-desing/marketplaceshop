@@ -1,4 +1,4 @@
-import { Container, SectionBadge, SectionTitle } from '../ui'
+import { Container, SectionBadge, SectionTitle, Verdict } from '../ui'
 import { PLATFORMS } from '../content'
 
 export default function Platforms() {
@@ -47,7 +47,10 @@ export default function Platforms() {
                             : 'text-gray-700'
                       }`}
                     >
-                      {value}
+                      <span className="flex gap-2.5">
+                        {typeof row.good[i] === 'boolean' && <Verdict ok={row.good[i] as boolean} />}
+                        <span>{value}</span>
+                      </span>
                     </td>
                   ))}
                 </tr>

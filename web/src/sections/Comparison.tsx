@@ -1,4 +1,4 @@
-import { Container, RollButton, SectionBadge, SectionTitle } from '../ui'
+import { Container, IconTile, RollButton, SectionBadge, SectionTitle, Verdict } from '../ui'
 import { COMPARISON } from '../content'
 
 export default function Comparison() {
@@ -23,14 +23,23 @@ export default function Comparison() {
               key={row.name}
               className="grid border-b border-gray-200 last:border-b-0 md:grid-cols-[1.05fr_1fr_1fr]"
             >
-              <div className="px-5 py-4 text-[14px] font-semibold text-gray-900 sm:text-[15px]">{row.name}</div>
-              <div className="border-t border-gray-200 bg-red-50/60 px-5 py-4 text-[14px] leading-[1.5] text-red-900 md:border-l md:border-t-0">
-                <span className="font-semibold text-red-600 md:hidden">Маркетплейс — </span>
-                {row.mp}
+              <div className="flex items-center gap-3 px-5 py-4 text-[14px] font-semibold text-gray-900 sm:text-[15px]">
+                <IconTile name={row.icon} size="sm" />
+                {row.name}
               </div>
-              <div className="border-t border-gray-200 bg-emerald-50/60 px-5 py-4 text-[14px] leading-[1.5] text-emerald-900 md:border-l md:border-t-0">
-                <span className="font-semibold text-emerald-700 md:hidden">Свой магазин — </span>
-                {row.own}
+              <div className="flex gap-3 border-t border-gray-200 bg-red-50/60 px-5 py-4 text-[14px] leading-[1.5] text-red-900 md:border-l md:border-t-0">
+                <Verdict ok={false} />
+                <span>
+                  <span className="font-semibold text-red-600 md:hidden">Маркетплейс — </span>
+                  {row.mp}
+                </span>
+              </div>
+              <div className="flex gap-3 border-t border-gray-200 bg-emerald-50/60 px-5 py-4 text-[14px] leading-[1.5] text-emerald-900 md:border-l md:border-t-0">
+                <Verdict ok />
+                <span>
+                  <span className="font-semibold text-emerald-700 md:hidden">Свой магазин — </span>
+                  {row.own}
+                </span>
               </div>
             </div>
           ))}
