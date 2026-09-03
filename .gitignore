@@ -12,6 +12,8 @@ Thumbs.db
 # Зависимости и сборка
 node_modules/
 dist/
+web/node_modules/
+web/dist/
 .wrangler/
 .cache/
 

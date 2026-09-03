@@ -25,6 +25,32 @@ Wildberries, Ozon и Яндекс Маркета. Отдельный домен,
 ## Прототип
 
 Живая страница: <https://takedown-desing.github.io/marketplaceshop/>
+Первая версия (одностраничник): <https://takedown-desing.github.io/marketplaceshop/v1/>
+
+## Сборка на React
+
+Актуальная версия лендинга — в `web/`: React 18 + TypeScript + Vite + Tailwind.
+Фон первого экрана собран на пакете `shaders` (Swirl, ChromaFlow, FlutedGlass,
+FilmGrain), иконки — `lucide-react`.
+
+```bash
+cd web
+npm install
+npm run dev        # разработка
+npm run build      # прод-сборка в web/dist
+npm run typecheck  # проверка типов
+```
+
+Движок шейдеров грузится отдельным чанком: основной бандл 197 КБ (62 КБ gzip),
+шейдеры 2,5 МБ подтягиваются после первого экрана. Если браузер не тянет WebGL,
+показывается статичный градиент — первый экран пустым не остаётся.
+
+| Файл | Что это |
+|---|---|
+| `web/src/content.ts` | весь текст лендинга — правки вносятся здесь |
+| `web/src/ui.tsx` | общие примитивы: контейнер, номерные плашки, кнопки с прокруткой подписи |
+| `web/src/sections/*` | по файлу на секцию, порядок задан в `web/src/App.tsx` |
+| `web/public/cases/` | превью кейсов |
 
 Кликабельный прототип со всеми 18 блоками: <https://claude.ai/code/artifact/36e88cf6-98a7-4b7e-a17b-01de7adbd9d5>
 
